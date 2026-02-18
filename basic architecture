@@ -1,0 +1,43 @@
+website/ (Root folder)
+│
+├── core/                # (EXISTING) Your Settings are here
+│   ├── settings.py
+│   ├── urls.py
+│   └── ...
+│
+├── pages/               # (EXISTING) Home, About, Contact views
+│   ├── views.py
+│   ├── urls.py
+│   └── ...
+│
+├── accounts/            # [NEW] For Login, Register, Profile
+│   ├── __init__.py
+│   ├── models.py        # Student info (Roll No, Branch)
+│   ├── views.py         # Login logic
+│   └── urls.py
+│
+├── clubs/               # [NEW] For Coding Club, Sports, Events
+│   ├── __init__.py
+│   ├── models.py        # Club & Event database tables
+│   ├── views.py         # Club details logic
+│   └── urls.py
+│
+├── dashboard/           # [NEW] For Student Dashboard
+│   ├── __init__.py
+│   ├── views.py         # "My Events" logic
+│   └── urls.py
+│
+├── templates/           # (EXISTING) Just add subfolders inside
+│   ├── base.html
+│   ├── home.html
+│   ├── accounts/        # [NEW FOLDER] login.html, register.html
+│   ├── clubs/           # [NEW FOLDER] club_list.html, detail.html
+│   └── dashboard/       # [NEW FOLDER] index.html
+│
+├── static/              # (EXISTING)
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── manage.py            # (EXISTING)
+└── requirements.txt     # (EXISTING)

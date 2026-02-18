@@ -106,36 +106,49 @@ erDiagram
  ## 📂 Project Directory Structure
 ```bash
 
-college_portal/
+website/ (Root folder)
 │
-├── manage.py                # Django command-line utility
-├── requirements.txt         # Project dependencies
-├── .env                     # Environment variables (GitIgnored)
-├── README.md                # Project documentation
+├── core/                # (EXISTING) Your Settings are here
+│   ├── settings.py
+│   ├── urls.py
+│   └── ...
 │
-├── college_portal/          # Project Configuration
+├── pages/               # (EXISTING) Home, About, Contact views
+│   ├── views.py
+│   ├── urls.py
+│   └── ...
+│
+├── accounts/            # [NEW] For Login, Register, Profile
 │   ├── __init__.py
-│   ├── settings.py          # Main settings (Apps, Database, Middleware)
-│   ├── urls.py              # Root URL routing
-│   ├── wsgi.py              # WSGI config for Render
-│   └── asgi.py
+│   ├── models.py        # Student info (Roll No, Branch)
+│   ├── views.py         # Login logic
+│   └── urls.py
 │
-├── apps/                    # Custom Applications
-│   ├── core/                # Home, About, Contact views
-│   ├── accounts/            # User authentication & Profile management
-│   ├── clubs/               # Club pages, Events, Memberships
-│   └── dashboard/           # Student Dashboard logic
+├── clubs/               # [NEW] For Coding Club, Sports, Events
+│   ├── __init__.py
+│   ├── models.py        # Club & Event database tables
+│   ├── views.py         # Club details logic
+│   └── urls.py
 │
-├── static/                  # Static Assets
+├── dashboard/           # [NEW] For Student Dashboard
+│   ├── __init__.py
+│   ├── views.py         # "My Events" logic
+│   └── urls.py
+│
+├── templates/           # (EXISTING) Just add subfolders inside
+│   ├── base.html
+│   ├── home.html
+│   ├── accounts/        # [NEW FOLDER] login.html, register.html
+│   ├── clubs/           # [NEW FOLDER] club_list.html, detail.html
+│   └── dashboard/       # [NEW FOLDER] index.html
+│
+├── static/              # (EXISTING)
 │   ├── css/
 │   ├── js/
-│   └── img/
+│   └── images/
 │
-└── templates/               # HTML Templates
-    ├── base.html            # Base template with Navbar/Footer
-    ├── accounts/            # Login/Register templates
-    ├── dashboard/           # Dashboard widgets
-    └── clubs/               # Specific templates (coding, cultural, etc.)
+├── manage.py            # (EXISTING)
+└── requirements.txt     # (EXISTING)
 
 ```    
 

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Notice Board - College Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="fw-bold mb-4 border-bottom pb-2">📢 Official Notice Board</h2>
+    
+    <div class="list-group shadow-sm">
+        {% for notice in notices %}
+        <div class="list-group-item list-group-item-action p-3">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 fw-bold">{{ notice.title }}</h5>
+                <small class="badge {% if notice.priority == 'High' %}bg-danger{% else %}bg-primary{% endif %}">
+                    {{ notice.priority }}
+                </small>
+            </div>
+            <p class="mb-1 text-muted">Posted on: {{ notice.date }}</p>
+        </div>
+        {% empty %}
+        <p class="text-center py-5 text-muted">No active notices at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

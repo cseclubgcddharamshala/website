@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ club.name }} - College Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-dark text-white rounded-3 shadow">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <span class="badge bg-success mb-2">Technical Club</span>
+                <h1 class="display-4 fw-bold text-info">{{ club.name }}</h1>
+                <p class="fs-5 lead">{{ club.description }}</p>
+                <button class="btn btn-info btn-lg mt-3 fw-bold">Join Community</button>
+            </div>
+            <div class="col-md-4 text-center d-none d-md-block">
+                <span style="font-size: 8rem;">💻</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="fw-bold mb-4">Upcoming Sprints & Events</h3>
+            {% for event in club.events.all %}
+                <div class="card mb-3 border-start border-info border-4">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1 fw-bold">{{ event.title }}</h5>
+                            <p class="mb-0 text-muted small">📍 {{ event.location }} | 📅 {{ event.date|date:"M d, Y" }}</p>
+                        </div>
+                        <button class="btn btn-sm btn-outline-info">Register</button>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-light border text-center">
+                    <p class="mb-0 text-muted">No active events right now. Check back soon!</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">Club Resources</div>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">📂 Project Repository</a>
+                    <a href="#" class="list-group-item list-group-item-action">📜 Past Hackathons</a>
+                    <a href="#" class="list-group-item list-group-item-action">💬 Discord Server</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Campus Connect{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm border">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-4 fw-bold text-primary">Empowering Student Innovation</h1>
+        <p class="col-md-8 fs-4 mx-auto text-muted">
+            The official digital hub for the CSE Department and Student Clubs at Govt. P.G. College, Dharamshala. 
+            Connect, Collaborate, and Create.
+        </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg px-4 shadow" href="{% url 'dashboard' %}">Enter Dashboard</a>
+            {% else %}
+                <a class="btn btn-primary btn-lg px-4 shadow" href="{% url 'register' %}">Get Started</a>
+                <a class="btn btn-outline-primary btn-lg px-4" href="{% url 'login' %}">Student Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 py-5">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <div class="display-4 mb-3 text-success">🚀</div>
+                <h3 class="fw-bold">Student Clubs</h3>
+                <p class="text-muted">From the Coding & Project Club to Cultural teams—find where you belong.</p>
+                <a href="{% url 'club_list' %}" class="btn btn-sm btn-outline-success">Browse Clubs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <div class="display-4 mb-3 text-danger">📢</div>
+                <h3 class="fw-bold">Notice Board</h3>
+                <p class="text-muted">Stay updated with the latest exam dates, department news, and event schedules.</p>
+                <a href="{% url 'notices' %}" class="btn btn-sm btn-outline-danger">View Notices</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <div class="display-4 mb-3 text-primary">💻</div>
+                <h3 class="fw-bold">CSE Resources</h3>
+                <p class="text-muted">Access syllabus, study materials, and connect with faculty members easily.</p>
+                <button class="btn btn-sm btn-outline-primary">Access Material</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-dark text-white rounded-3 p-4 text-center my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="fw-bold text-warning">500+</h2>
+            <p class="mb-0">Active Students</p>
+        </div>
+        <div class="col-md-4 border-start border-end border-secondary">
+            <h2 class="fw-bold text-info">10+</h2>
+            <p class="mb-0">Active Clubs</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="fw-bold text-success">50+</h2>
+            <p class="mb-0">Annual Events</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

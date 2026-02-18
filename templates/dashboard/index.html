@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard - College Portal{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="border-bottom pb-2">Student Dashboard</h1>
+            <p class="text-muted">Welcome back, <strong>{{ user.username }}</strong>!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">My Profile</h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="bg-light rounded-circle d-inline-block p-4 mb-3">
+                        <span class="fs-1">👤</span>
+                    </div>
+                    <h4>{{ user.username }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <button class="btn btn-sm btn-outline-primary">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">My Clubs</h5>
+                            <p class="card-text">You haven't joined any clubs yet.</p>
+                            <a href="{% url 'club_list' %}" class="btn btn-primary">Find a Club</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm border-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Upcoming Events</h5>
+                            <p class="card-text text-muted">No registered events found.</p>
+                            <button class="btn btn-warning btn-sm">Browse Events</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    Recent Notifications
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Welcome to the new College Portal! Explore the features today.</li>
+                    <li class="list-group-item text-muted small">System: Setup your profile to get personalized updates.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
