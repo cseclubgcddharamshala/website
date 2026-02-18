@@ -1,52 +1,51 @@
 {% extends 'base.html' %}
 
-{% block title %}Explore Clubs - College Portal{% endblock %}
+{% block title %}Student Clubs - Campus Connect{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="fw-bold">Student Clubs & Societies</h1>
-        <p class="text-muted">Find your community and start building your legacy.</p>
+<div class="container py-4">
+    <div class="row mb-5 text-center">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 fw-bold text-dark mb-3"><i class="fa-solid fa-users-viewfinder text-primary me-2"></i>Explore Clubs</h1>
+            <p class="lead text-muted">Discover communities, join upcoming events, and collaborate on amazing projects with your peers.</p>
+        </div>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 mb-5">
         {% for club in clubs %}
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 transition-hover">
-                {% if club.logo %}
-                    <img src="{{ club.logo.url }}" class="card-img-top p-3" alt="{{ club.name }}" style="height: 200px; object-fit: contain;">
-                {% else %}
-                    <div class="bg-light text-center py-5">
-                        <span class="display-1">🏛️</span>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 hover-lift overflow-hidden">
+                    <div class="bg-primary py-1 w-100"></div>
+                    
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 fw-medium">
+                                <i class="fa-solid fa-tag me-1"></i> {{ club.get_club_type_display }}
+                            </span>
+                        </div>
+                        
+                        <h4 class="card-title fw-bold text-dark mb-2">{{ club.name }}</h4>
+                        <p class="card-text text-muted mb-4">{{ club.description|truncatewords:20 }}</p>
                     </div>
-                {% endif %}
-                
-                <div class="card-body">
-                    <span class="badge bg-info text-dark mb-2">{{ club.get_club_type_display }}</span>
-                    <h5 class="card-title fw-bold">{{ club.name }}</h5>
-                    <p class="card-text text-muted small">
-                        {{ club.description|truncatewords:20 }}
-                    </p>
-                </div>
-                <div class="card-footer bg-transparent border-0 pb-4">
-                    <a href="{% url 'club_detail' club.slug %}" class="btn btn-primary w-100">View Club</a>
+                    
+                    <div class="card-footer bg-white border-top-0 p-4 pt-0">
+                        <a href="{% url 'clubs:club_detail' club.slug %}" class="btn btn-outline-primary w-100 rounded-pill fw-bold hover-lift">
+                            View Club <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
         {% empty %}
-        <div class="col-12 text-center py-5">
-            <h3 class="text-muted">No clubs have been added yet.</h3>
-            <p>Check back later or contact the admin.</p>
-        </div>
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 text-center py-5">
+                    <div class="card-body py-5">
+                        <i class="fa-solid fa-ghost text-muted opacity-50 mb-3" style="font-size: 4rem;"></i>
+                        <h3 class="fw-bold text-dark">No clubs found!</h3>
+                        <p class="text-muted mx-auto" style="max-width: 400px;">It looks like the admin hasn't added any clubs to the portal yet. Check back soon!</p>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 </div>
-
-<style>
-    .transition-hover:hover {
-        transform: translateY(-5px);
-        transition: 0.3s;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-    }
-</style>
 {% endblock %}

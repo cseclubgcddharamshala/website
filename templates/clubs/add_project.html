@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Upload Project - Campus Connect{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header bg-primary text-white p-4 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-cloud-arrow-up fa-2x"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Upload Your Project</h3>
+                            <p class="mb-0 text-white-50">Submitting to: <strong class="text-white">{{ club.name }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-5 bg-white">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-4">
+                                <label for="{{ field.id_for_label }}" class="form-label fw-bold text-dark">
+                                    {{ field.label }}
+                                    {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                                </label>
+                                
+                                {{ field }}
+                                
+                                {% if field.help_text %}
+                                    <div class="form-text text-muted small mt-1"><i class="fa-solid fa-circle-info me-1"></i>{{ field.help_text }}</div>
+                                {% endif %}
+                                
+                                {% for error in field.errors %}
+                                    <div class="text-danger small mt-1 fw-medium"><i class="fa-solid fa-triangle-exclamation me-1"></i>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="d-flex gap-3 mt-5 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm hover-lift">
+                                <i class="fa-solid fa-paper-plane me-2"></i> Submit Project
+                            </button>
+                            <a href="{% url 'clubs:club_detail' club.slug %}" class="btn btn-light btn-lg rounded-pill px-4 fw-medium text-secondary hover-lift">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="alert alert-info border-0 shadow-sm rounded-4 mt-4 d-flex align-items-center">
+                <i class="fa-solid fa-lightbulb text-warning fs-4 me-3"></i>
+                <div>
+                    <strong class="text-dark">Pro Tip:</strong> Ensure your GitHub repository is set to public before pasting the link so your peers can view your source code!
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

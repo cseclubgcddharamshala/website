@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ club.name }} - Campus Connect{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f7f6;
+    }
+
+    /* Keeps the rest of the site light */
+    .coding-theme-wrapper {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .coding-card {
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+    }
+
+    .coding-text-muted {
+        color: #8b949e;
+    }
+
+    .coding-accent {
+        color: #58a6ff;
+    }
+
+    .coding-border {
+        border-color: #30363d !important;
+    }
+
+    .hover-glow:hover {
+        border-color: #58a6ff;
+        transition: 0.3s ease;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="coding-theme-wrapper shadow-lg position-relative overflow-hidden">
+        <div class="position-relative z-1">
+            <span class="badge bg-primary bg-opacity-25 text-info mb-3 px-3 py-2 rounded-pill fw-medium">
+                <i class="fa-solid fa-code me-1"></i> Technical Club
+            </span>
+            <h1 class="display-4 fw-bold text-white mb-3">{{ club.name }}</h1>
+            <p class="fs-5 coding-text-muted mb-4" style="max-width: 700px;">{{ club.description }}</p>
+
+            <div class="d-flex gap-3 flex-wrap">
+                <button class="btn btn-primary px-4 py-2 fw-medium rounded-pill shadow-sm">
+                    <i class="fa-brands fa-discord me-2"></i>Join Discord
+                </button>
+                {% if user.is_authenticated %}
+                <a href="{% url 'clubs:add_project' club.slug %}"
+                    class="btn btn-outline-light px-4 py-2 fw-medium rounded-pill">
+                    <i class="fa-solid fa-cloud-arrow-up me-2"></i> Upload Project
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <i class="fa-solid fa-laptop-code position-absolute"
+            style="font-size: 15rem; right: -20px; bottom: -40px; opacity: 0.05; transform: rotate(-10deg);"></i>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-2">
+                <h4 class="fw-bold text-dark mb-0"><i class="fa-regular fa-folder-open text-primary me-2"></i>Student
+                    Projects</h4>
+            </div>
+
+            <div class="row g-3 mb-5">
+                {% for project in club.projects.all %}
+                <div class="col-md-6">
+                    <div class="coding-card p-4 h-100 hover-glow shadow-sm">
+                        <h5 class="fw-bold coding-accent mb-1">{{ project.title }}</h5>
+                        <p class="small coding-text-muted mb-3">By <strong>@{{ project.student.username }}</strong> • {{
+                            project.created_at|date:"M d, Y" }}</p>
+                        <p class="text-light small mb-4">{{ project.description|truncatewords:15 }}</p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="d-flex gap-2">
+                                {% if project.project_link %}
+                                <a href="{{ project.project_link }}" target="_blank"
+                                    class="btn btn-sm btn-outline-secondary rounded-pill fw-medium">
+                                    <i class="fa-solid fa-link me-1"></i> Source
+                                </a>
+                                {% endif %}
+                                <a href="{% url 'clubs:like_project' project.id %}"
+                                    class="btn btn-sm {% if user in project.likes.all %}btn-danger{% else %}btn-outline-danger{% endif %} rounded-pill fw-medium">
+                                    <i
+                                        class="fa-heart {% if user in project.likes.all %}fa-solid{% else %}fa-regular{% endif %} me-1"></i>
+                                    {{ project.likes.count }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm rounded-4 text-center py-4 bg-white">
+                        <i class="fa-regular fa-folder-open fs-2 text-muted mb-2 opacity-50"></i>
+                        <p class="text-muted mb-0">No projects uploaded yet.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h4 class="fw-bold text-dark mb-4 border-bottom border-secondary pb-2"><i
+                    class="fa-regular fa-calendar text-success me-2"></i>Upcoming Events</h4>
+            <div class="d-flex flex-column gap-3">
+                {% for event in club.events.all %}
+                <div class="coding-card p-4 d-flex justify-content-between align-items-center hover-glow shadow-sm">
+                    <div>
+                        <h5 class="text-white fw-bold mb-1">{{ event.title }}</h5>
+                        <span class="coding-text-muted small"><i class="fa-regular fa-clock me-1"></i> {{
+                            event.date|date:"M d, Y - h:i A" }}</span>
+                        <div class="mt-2">
+                            <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary">{{
+                                event.participants.count }} registered</span>
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    {% if user in event.participants.all %}
+                    <a href="{% url 'clubs:register_event' event.id %}"
+                        class="btn btn-sm btn-success rounded-pill px-4 fw-medium">
+                        <i class="fa-solid fa-check me-1"></i> Registered
+                    </a>
+                    {% else %}
+                    <a href="{% url 'clubs:register_event' event.id %}"
+                        class="btn btn-sm btn-outline-success rounded-pill px-4 fw-medium">
+                        RSVP Now
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-outline-primary rounded-pill px-4 fw-medium">Login
+                        to RSVP</a>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="card border-0 shadow-sm rounded-4 text-center py-4 bg-white">
+                    <p class="text-muted mb-0">No upcoming events scheduled.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="coding-card p-4 sticky-top shadow-sm" style="top: 20px;">
+                <h5 class="fw-bold text-white border-bottom coding-border pb-3 mb-3"><i
+                        class="fa-solid fa-circle-info me-2 text-info"></i>About This Club</h5>
+                <ul class="list-unstyled mb-0 coding-text-muted">
+                    <li class="mb-3 d-flex align-items-center"><i class="fa-solid fa-user-group me-3 coding-accent"></i>
+                        150+ Members</li>
+                    <li class="mb-3 d-flex align-items-center"><i
+                            class="fa-solid fa-code-branch me-3 coding-accent"></i> Open Source Focus</li>
+                    <li class="mb-0 d-flex align-items-center"><i class="fa-solid fa-server me-3 coding-accent"></i>
+                        Tech: Python, Django</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

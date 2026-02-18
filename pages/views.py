@@ -28,9 +28,7 @@ def notices(request):
     """
     Renders the central notice board.
     """
-   
-    all_notices = [
-        {'title': 'Mid-Term Exam Schedule', 'date': 'Feb 20, 2026', 'priority': 'High'},
-        {'title': 'Coding Club Meeting', 'date': 'Feb 22, 2026', 'priority': 'Medium'},
-    ]
-    return render(request, 'pages/notices.html', {'notices': all_notices})
+    from .models import Notice
+    notices = Notice.objects.filter(is_active=True).order_by('-created_at')
+    
+    return render(request, 'pages/notices.html', {'notices': notices})
