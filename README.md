@@ -76,7 +76,7 @@ graph TD
     Dash --> |Fetch Media| Storage[(Supabase Storage)]
 
 ```    
-
+```mermaid
 erDiagram
     USER ||--o{ MEMBERSHIP : joins
     USER ||--o{ EVENT_REG : registers
@@ -102,9 +102,9 @@ erDiagram
         boolean is_active
     }
 
-
-📂 Project Directory Structure
-
+```
+ ## 📂 Project Directory Structure
+```bash
 
 college_portal/
 │
@@ -137,6 +137,8 @@ college_portal/
     ├── dashboard/           # Dashboard widgets
     └── clubs/               # Specific templates (coding, cultural, etc.)
 
+```    
+
 ## 🛠️ Installation & Setup
 
 Follow these steps to set up the project locally.
@@ -155,6 +157,7 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 
+```
 
 ## 🤝 Contributing
 Contributions are welcome! Please follow these steps to contribute:
