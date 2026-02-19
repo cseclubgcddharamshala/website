@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-for-product
 # Set DEBUG to False if on Render, True if on Local
 DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = ['*'] if IS_PRODUCTION else ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*'] if IS_PRODUCTION else ['127.0.0.1', 'localhost','172.29.189.111' ]
 
 # --- APPLICATION DEFINITION ---
 INSTALLED_APPS = [
